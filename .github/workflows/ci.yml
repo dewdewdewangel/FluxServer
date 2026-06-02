@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build-and-test:
+    name: ${{ matrix.profile }} / ${{ matrix.cc }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        profile: [release, debug, asan]
+        cc: [gcc, clang]
+    env:
+      CC: ${{ matrix.cc }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Toolchain version
+        run: |
+          ${{ matrix.cc }} --version
+          make --version | head -1
+
+      - name: Build server (PROFILE=${{ matrix.profile }})
+        run: make PROFILE=${{ matrix.profile }}
+
+      - name: Run unit tests (PROFILE=${{ matrix.profile }})
+        run: make test PROFILE=${{ matrix.profile }}

@@ -1,0 +1,32 @@
+build/
+*.o
+*.d
+*.a
+*.so
+flux-server
+flux-server-*
+server
+tests/unit/test_*
+!tests/unit/test_*.c
+bench/results/*.txt
+bench/results/*.csv
+bench/results/*.log
+core
+core.*
+vgcore.*
+*.gcda
+*.gcno
+*.gcov
+coverage.info
+coverage_html/
+.cache/
+compile_commands.json
+
+# IDE / tooling state
+.vscode/
+.claude/
+.specstory/
+.devcontainer/
+
+# Private planning / notes (Chinese roadmap, etc.)
+Documents/
